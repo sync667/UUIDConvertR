@@ -1,0 +1,11 @@
+
+restore: false
+
+storage:
+  hostname: localhost
+  port: 3306
+  database: s
+  username: s
+  password: ss
+  prefix: ''
+  type: mysql

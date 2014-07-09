@@ -1,0 +1,6 @@
+name: UUIDConvertR
+main: pl.usedev.uuidconvertr.UUIDConvertR
+version: 1.0.0
+authors: [sync667]
+description: Small fix for converting server to UUID without losing player data.
+depend: [ProtocolLib]
