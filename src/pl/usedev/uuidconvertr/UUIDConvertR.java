@@ -55,12 +55,19 @@ public class UUIDConvertR extends JavaPlugin{
 	        try {
 				create_tables();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.warning("[UUIDConvertR] Can't create database table - disabling!");
+				plugin.getPluginLoader().disablePlugin(this);
+                return;
 			}
 						
 			if(!this.getConfig().getBoolean("restore"))
 			{		    
+				if(Bukkit.getServer().getVersion().contains("1.7.9"))
+				{
+					log.warning("[UUIDConvertR] Your server is on 1.7.9 change restore mode or use 1.7.2-R0.3!");
+					plugin.getPluginLoader().disablePlugin(this);
+					return;
+				}
 				saveAll();
 			}
 			else
@@ -228,6 +235,7 @@ public class UUIDConvertR extends JavaPlugin{
 	  
 	  public static void saveAll()
 	  {
+		  log.info("[UUIDConvertR] Saving Proccess Started! Please be patient.");
 		  localConn.query("TRUNCATE TABLE `UUIDConvertR_data`");
 		  
 	    OfflinePlayer[] players = plugin.getServer().getOfflinePlayers();
@@ -271,52 +279,15 @@ public class UUIDConvertR extends JavaPlugin{
                 }
 	        	
 	          progress++;
-	          double proc = progress / (players.length/100);
-	          if(proc == 10.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 20.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 30.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 40.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 50.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 60.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 70.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 80.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 90.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Progress " + proc + "%");
-	          }
-	          else if(proc == 100.00)
-	          {
-	        	  log.info("[UUIDConvertR] Saving Completed");
-	          }
+	          
+	          if(progress % 100 == 0)
+	        	  log.info("\r[UUIDConvertR] Saving Progress |" + progress + "/" + players.length + "|");
+	          
 	        }
 	        
 	        if(errors==0)
 	        {
-	        	log.info("[UUIDConvertR] saved all players data (" + progress + ")! Now turn off server, change 'restore' in config to true, and turn server on. Players will get theirs things on join.");
+	        	log.info("\n[UUIDConvertR] saved all players data (" + progress + ")! Now turn off server, change 'restore' in config to true, and turn server on. Players will get theirs things on join.");
 	        }
 	        else
 	        {

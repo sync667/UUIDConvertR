@@ -21,7 +21,12 @@ public class PJoin implements Listener{
 			String inv = player[0];
 			String armor = player[1];
 			String ender = player[2];
-			int exp = Integer.valueOf(player[3]);
+			int exp = 0;
+			try{
+				exp = Integer.valueOf(player[3]);
+			}catch(NumberFormatException e){
+				e.printStackTrace();
+			}
 			String location = player[4];
 			
 			if(inv!=null)
@@ -38,13 +43,19 @@ public class PJoin implements Listener{
 			}
 			if(exp!=0)
 			{
-				p.setTotalExperience(exp);;
+				p.setTotalExperience(exp);
 			}
 			if(location!=null)
 			{
 				String[] loc = location.split(";");
-				
-				p.teleport(new Location(Bukkit.getWorld(loc[4]), Double.valueOf(loc[0]), Double.valueOf(loc[1]), Double.valueOf(loc[2])));
+				try{
+				Location locL = null;
+					locL = new Location(Bukkit.getWorld(loc[4]), Double.valueOf(loc[0]), Double.valueOf(loc[1]), Double.valueOf(loc[2]));
+				if(locL != null)
+					p.teleport(locL);
+				}catch(Exception e){
+					UUIDConvertR.log.warning(e.getMessage());
+				}
 				
 			}
 			

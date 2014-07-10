@@ -3,10 +3,12 @@ package pl.usedev.uuidconvertr;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+
 import net.minecraft.server.v1_7_R1.EntityPlayer;
 import net.minecraft.server.v1_7_R1.MinecraftServer;
 import net.minecraft.server.v1_7_R1.PlayerInteractManager;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
@@ -14,6 +16,9 @@ import org.bukkit.entity.Player;
 
 public class PlayerDataManager
 
+/*
+ * Thanks for OpenInv plugin author for method!
+ */
 {
   public static Player loadPlayer(String name)
   {
@@ -41,11 +46,9 @@ public class PlayerDataManager
         
         return target;
       }
-    }
-    catch (Exception e)
-    {
-      
-    }
+    }catch(Exception e){
+		UUIDConvertR.log.warning(e.getMessage());
+	}
     return null;
   }
   
@@ -77,9 +80,3 @@ public class PlayerDataManager
     return found;
   }
 }
-
-
-/* Location:           D:\importy\OpenInv.jar
- * Qualified Name:     com.lishid.openinv.internal.v1_7_R1.PlayerDataManager
- * JD-Core Version:    0.7.0.1
- */
