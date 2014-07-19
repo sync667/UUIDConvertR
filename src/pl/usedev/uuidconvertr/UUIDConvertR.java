@@ -203,11 +203,7 @@ public class UUIDConvertR extends JavaPlugin{
 			if(result.next()){
 				 res = new String[]{result.getString("inv"), result.getString("armor"), result.getString("ender"), String.valueOf(result.getInt("exp")), result.getString("location")};
 			}
-			
-			if(res == null){
-				log.warning("GetPlayer null? !");
-			}
-			
+
 			result.close();
 		        
 		  }
